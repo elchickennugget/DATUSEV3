@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#102c59">
+<title>DATUSE! - Daftar Tugas Sekolah</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Nunito:wght@400;600;700;800;900&display=swap');
+
+:root {
+    --blue: #2864bd;
+    --dark: #102c59;
+    --light: #eaf3ff;
+    --white: #ffffff;
+    --yellow: #ffda70;
+    --green: #70d6a0;
+    --red: #ff7777;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: 'Nunito', sans-serif;
+    background-color: #102c59;
+    background-image:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+    background-size: 24px 24px;
+    color: var(--dark);
+}
+
+button, input, select, textarea {
+    font-family: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+.pixel {
+    font-family: 'Press Start 2P', monospace;
+}
+
+header {
+    text-align: center;
+    color: white;
+    padding: 35px 15px 25px;
+}
+
+.logo {
+    font-family: 'Press Start 2P', monospace;
+    font-size: clamp(32px, 8vw, 57px);
+    color: #fff;
+    text-shadow: 5px 5px 0 #173c79, 8px 8px 0 #071a38;
+    letter-spacing: -4px;
+    margin: 10px 0 17px;
+}
+
+.subtitle {
+    font-size: 15px;
+    color: #bcd7ff;
+    margin-top: 10px;
+}
+
+.school {
+    display: inline-block;
+    margin-top: 22px;
+    background: #ffda70;
+    color: #17345f;
+    padding: 11px 15px;
+    font-family: 'Press Start 2P';
+    font-size: 10px;
+    box-shadow: 4px 4px 0 #071a38;
+}
+
+.pixel-decoration {
+    font-size: 23px;
+    letter-spacing: 15px;
+    margin: 20px 0 0;
+}
+
+.container {
+    max-width: 850px;
+    margin: auto;
+    padding: 0 15px 40px;
+}
+
+.panel {
+    background: #f4f8ff;
+    border: 3px solid #fff;
+    box-shadow: 6px 6px 0 #071a38;
+    padding: 22px;
+    margin-bottom: 22px;
+}
+
+.section-title {
+    font-size: 14px;
+    font-weight: 900;
+    color: #1c4e96;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.profile-area {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.profile-area input {
+    flex: 1;
+    min-width: 150px;
+}
+
+input, select, textarea {
+    width: 100%;
+    border: 2px solid #c5d8f5;
+    background: white;
+    color: #17345f;
+    border-radius: 5px;
+    padding: 12px;
+    outline: none;
+    font-size: 14px;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: #2864bd;
+    box-shadow: 0 0 0 3px #2864bd20;
+}
+
+label {
+    display: block;
+    font-size: 12px;
+    font-weight: 900;
+    margin: 13px 0 7px;
+    color: #244875;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.primary-btn {
+    background: #2864bd;
+    color: white;
+    border: none;
+    padding: 14px 18px;
+    border-radius: 5px;
+    font-weight: 900;
+    box-shadow: 0 4px 0 #143b78;
+    transition: .1s;
+}
+
+.primary-btn:active {
+    transform: translateY(3px);
+    box-shadow: 0 1px 0 #143b78;
+}
+
+.add-btn {
+    width: 100%;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.secondary-btn {
+    background: #dceaff;
+    color: #204d8d;
+    border: 2px solid #a8c7f2;
+    padding: 10px 14px;
+    border-radius: 5px;
+    font-weight: 900;
+}
+
+.danger-btn {
+    background: #ffe1e1;
+    color: #a33232;
+    border: 2px solid #ffb6b6;
+    padding: 9px 12px;
+    border-radius: 5px;
+    font-weight: 900;
+}
+
+.notification-btn {
+    width: 100%;
+    margin-top: 12px;
+    background: #e7f0ff;
+    border: 2px dashed #7ca7e6;
+    padding: 12px;
+    color: #1e4d8e;
+    font-weight: 900;
+    border-radius: 5px;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.stat {
+    text-align: center;
+    padding: 15px 5px;
+    background: #dceaff;
+    border: 2px solid #b7d2f8;
+    border-bottom: 4px solid #9bbce9;
+}
+
+.stat strong {
+    display: block;
+    font-family: 'VT323';
+    font-size: 35px;
+    color: #1d579f;
+}
+
+.stat span {
+    font-size: 10px;
+    font-weight: 900;
+}
+
+.toolbar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.toolbar select {
+    flex: 1;
+    min-width: 120px;
+}
+
+.task {
+    background: white;
+    border: 2px solid #c8dcfa;
+    border-left: 6px solid #3978ce;
+    padding: 15px;
+    margin-bottom: 12px;
+    border-radius: 4px;
+    animation: appear .2s ease;
+}
+
+@keyframes appear {
+    from {opacity:0; transform:translateY(8px);}
+    to {opacity:1; transform:translateY(0);}
+}
+
+.task.done {
+    opacity: .65;
+    border-left-color: #56b887;
+}
+
+.task.overdue {
+    border-left-color: #e64e4e;
+}
+
+.task-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: flex-start;
+}
+
+.task-name {
+    font-size: 16px;
+    font-weight: 900;
+    overflow-wrap: anywhere;
+}
+
+.task-subject {
+    display: inline-block;
+    background: #e2edff;
+    color: #27599d;
+    padding: 5px 9px;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: 900;
+    margin: 8px 0;
+}
+
+.deadline {
+    font-size: 12px;
+    color: #526b8d;
+    font-weight: 800;
+}
+
+.task-status {
+    display: inline-block;
+    padding: 5px 8px;
+    font-size: 10px;
+    font-weight: 900;
+    border-radius: 3px;
+    background: #fff1cc;
+    color: #936000;
+    margin-top: 8px;
+}
+
+.task-status.late {
+    background: #ffe0e0;
+    color: #b52f2f;
+}
+
+.task-status.finished {
+    background: #d8f8e7;
+    color: #26784d;
+}
+
+.task-actions {
+    display: flex;
+    gap: 7px;
+    margin-top: 13px;
+    flex-wrap: wrap;
+}
+
+.task-actions button {
+    font-size: 11px;
+    padding: 8px 10px;
+}
+
+.empty {
+    text-align: center;
+    padding: 35px 10px;
+    color: #7891b3;
+}
+
+.empty .emoji {
+    font-size: 45px;
+}
+
+.empty p {
+    font-weight: 800;
+}
+
+.footer {
+    text-align: center;
+    color: #a9c8f4;
+    font-size: 11px;
+    padding: 15px;
+    line-height: 2;
+}
+
+.pixel-line {
+    height: 5px;
+    background: repeating-linear-gradient(
+        90deg,
+        #4b8be2 0px,
+        #4b8be2 12px,
+        transparent 12px,
+        transparent 18px
+    );
+    margin: 20px 0;
+}
+
+.toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #102c59;
+    color: white;
+    padding: 13px 20px;
+    border: 2px solid #75a8ef;
+    box-shadow: 4px 4px 0 #071a38;
+    font-size: 12px;
+    font-weight: 900;
+    z-index: 100;
+    display: none;
+    width: max-content;
+    max-width: 90%;
+    text-align: center;
+}
+
+@media(max-width:550px) {
+    .panel {
+        padding: 16px;
+    }
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    .task-header {
+        flex-direction: column;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="pixel-decoration">✦ ▪ ✦</div>
+    <h1 class="logo">DATUSE!</h1>
+    <div class="subtitle">(daftar tugas sekolah)</div>
+    <div class="school">SMAN 3 BANTAENG</div>
+    <div class="pixel-decoration">▪ ✦ ▪</div>
+</header>
+
+<main class="container">
+
+    <!-- PROFIL PENGGUNA -->
+    <section class="panel">
+        <div class="section-title">👤 PROFIL PENGGUNA</div>
+        <div class="profile-area">
+            <input id="username" type="text" placeholder="Masukkan nama kamu...">
+            <button class="primary-btn" onclick="changeProfile()">MASUK</button>
+        </div>
+        <p style="font-size:11px;color:#6b83a4;margin-bottom:0">
+            Data tugas disimpan berdasarkan nama profil pada perangkat ini.
+        </p>
+    </section>
+
+    <!-- FORM INPUT -->
+    <section class="panel">
+        <div class="section-title">📝 TAMBAH ANTRIAN TUGAS</div>
+
+        <form id="taskForm">
+
+            <label for="subject">MATA PELAJARAN</label>
+            <select id="subject" required>
+                <option value="">-- Pilih mata pelajaran --</option>
+                <option>Matematika</option>
+                <option>Biologi</option>
+                <option>Sosiologi</option>
+                <option>Fisika</option>
+                <option>Seni Budaya</option>
+                <option>PKN</option>
+                <option>Koding dan AI</option>
+                <option>Penjasorkes</option>
+                <option>PAI</option>
+                <option>Informatika</option>
+                <option>Bahasa Inggris</option>
+                <option>Muatan Lokal</option>
+                <option>Sejarah</option>
+                <option>Kimia</option>
+                <option>Bahasa Indonesia</option>
+                <option>Ekonomi</option>
+                <option>Geografi</option>
+                <option>Lainnya</option>
+            </select>
+
+            <label for="taskName">NAMA / JUDUL / MATERI TUGAS</label>
+            <textarea id="taskName" rows="3" placeholder="Contoh: Membuat makalah tentang perubahan sosial..." required></textarea>
+
+            <div class="form-grid">
+                <div>
+                    <label for="deadline">TANGGAL DEADLINE</label>
+                    <input type="date" id="deadline" min="2026-01-01" max="2030-12-31" required>
+                </div>
+
+                <div>
+                    <label for="priority">PRIORITAS TUGAS</label>
+                    <select id="priority">
+                        <option value="normal">Normal</option>
+                        <option value="high">Penting!</option>
+                        <option value="urgent">Sangat Mendesak!!</option>
+                    </select>
+                </div>
+            </div>
+
+            <button class="primary-btn add-btn" type="submit">
+                ✚ TAMBAHKAN KE ANTRIAN
+            </button>
+
+        </form>
+    </section>
+
+    <!-- STATISTIK -->
+    <section class="stats">
+        <div class="stat">
+            <strong id="total">0</strong>
+            <span>TOTAL TUGAS</span>
+        </div>
+        <div class="stat">
+            <strong id="pending">0</strong>
+            <span>BELUM SELESAI</span>
+        </div>
+        <div class="stat">
+            <strong id="completed">0</strong>
+            <span>SELESAI</span>
+        </div>
+    </section>
+
+    <!-- DAFTAR TUGAS -->
+    <section class="panel">
+        <div class="section-title">📚 DAFTAR ANTRIAN TUGAS</div>
+
+        <div class="toolbar">
+            <select id="filter" onchange="renderTasks()">
+                <option value="all">Semua tugas</option>
+                <option value="pending">Belum selesai</option>
+                <option value="completed">Sudah selesai</option>
+                <option value="overdue">Terlambat</option>
+            </select>
+
+            <select id="sort" onchange="renderTasks()">
+                <option value="nearest">Deadline terdekat</option>
+                <option value="farthest">Deadline terjauh</option>
+                <option value="priority">Prioritas tertinggi</option>
+                <option value="newest">Terbaru ditambahkan</option>
+            </select>
+        </div>
+
+        <div id="taskList"></div>
+
+        <div class="pixel-line"></div>
+
+        <button class="secondary-btn" onclick="exportData()" style="width:100%">
+            ↓ EKSPOR DATA TUGAS
+        </button>
+    </section>
+
+    <!-- NOTIFIKASI -->
+    <section class="panel">
+        <div class="section-title">🔔 PENGATURAN NOTIFIKASI</div>
+
+        <p style="font-size:12px;line-height:1.8;color:#536e93">
+            DATUSE! dapat mengirim pengingat ketika deadline tugas tiba.
+            Waktu pengingat: <b>07.00–07.30 WITA</b>.
+        </p>
+
+        <button class="notification-btn" onclick="enableNotifications()">
+            🔔 AKTIFKAN NOTIFIKASI
+        </button>
+
+        <p id="notificationStatus" style="font-size:11px;color:#6b83a4;text-align:center">
+            Status: Belum diaktifkan
+        </p>
+    </section>
+
+    <div class="footer">
+        <div class="pixel-line"></div>
+        <div class="pixel">DATUSE! v1.0</div>
+        <p>Made for students of SMAN 3 BANTAENG</p>
+        <p>Organize your tasks. Conquer your deadlines.</p>
+        <p>© 2026 DATUSE! - All Rights Reserved</p>
+    </div>
+
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+
+// ======================================
+// DATUSE! - SISTEM UTAMA
+// ======================================
+
+let currentUser = localStorage.getItem("datuse_current_user") || "Pengguna";
+let tasks = [];
+let audioContext;
+
+// ======================================
+// SOUND EFFECT
+// ======================================
+
+function playSound(type = "click") {
+    try {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContextClass) return;
+
+        audioContext = audioContext || new AudioContextClass();
+
+        if (audioContext.state === "suspended") {
+            audioContext.resume();
+        }
+
+        const oscillator = audioContext.createOscillator();
+        const gain = audioContext.createGain();
+
+        oscillator.connect(gain);
+        gain.connect(audioContext.destination);
+
+        if (type === "success") {
+            oscillator.frequency.setValueAtTime(500, audioContext.currentTime);
+            oscillator.frequency.setValueAtTime(800, audioContext.currentTime + .1);
+            gain.gain.setValueAtTime(.08, audioContext.currentTime);
+            gain.gain.exponentialRampToValueAtTime(.001, audioContext.currentTime + .2);
+            oscillator.start();
+            oscillator.stop(audioContext.currentTime + .2);
+        } else if (type === "delete") {
+            oscillator.frequency.setValueAtTime(500, audioContext.currentTime);
+            oscillator.frequency.exponentialRampToValueAtTime(180, audioContext.currentTime + .15);
+            gain.gain.setValueAtTime(.08, audioContext.currentTime);
+            gain.gain.exponentialRampToValueAtTime(.001, audioContext.currentTime + .15);
+            oscillator.start();
+            oscillator.stop(audioContext.currentTime + .15);
+        } else {
+            oscillator.frequency.setValueAtTime(650, audioContext.currentTime);
+            gain.gain.setValueAtTime(.05, audioContext.currentTime);
+            gain.gain.exponentialRampToValueAtTime(.001, audioContext.currentTime + .07);
+            oscillator.start();
+            oscillator.stop(audioContext.currentTime + .07);
+        }
+    } catch (e) {
+        console.log("Audio tidak tersedia");
+    }
+}
+
+// ======================================
+// PROFIL PENGGUNA
+// ======================================
+
+function storageKey() {
+    return "datuse_tasks_" + currentUser.toLowerCase().trim();
+}
+
+function loadTasks() {
+    try {
+        tasks = JSON.parse(localStorage.getItem(storageKey())) || [];
+    } catch {
+        tasks = [];
+    }
+    renderTasks();
+}
+
+function saveTasks() {
+    localStorage.setItem(storageKey(), JSON.stringify(tasks));
+}
+
+function changeProfile() {
+    const name = document.getElementById("username").value.trim();
+
+    if (!name) {
+        showToast("Masukkan nama pengguna terlebih dahulu!");
+        return;
+    }
+
+    currentUser = name;
+    localStorage.setItem("datuse_current_user", currentUser);
+
+    loadTasks();
+    showToast("Selamat datang, " + currentUser + "!");
+    playSound("success");
+}
+
+// ======================================
+// TANGGAL DAN WAKTU
+// ======================================
+
+function getTodayWITA() {
+    return new Intl.DateTimeFormat("en-CA", {
+        timeZone: "Asia/Makassar",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit"
+    }).format(new Date());
+}
+
+function formatDate(date) {
+    const d = new Date(date + "T12:00:00+08:00");
+
+    return d.toLocaleDateString("id-ID", {
+        timeZone: "Asia/Makassar",
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+    });
+}
+
+function isOverdue(task) {
+    return !task.done && task.deadline < getTodayWITA();
+}
+
+// ======================================
+// MENAMBAHKAN TUGAS
+// ======================================
+
+document.getElementById("taskForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const subject = document.getElementById("subject").value;
+    const name = document.getElementById("taskName").value.trim();
+    const deadline = document.getElementById("deadline").value;
+    const priority = document.getElementById("priority").value;
+
+    if (!subject || !name || !deadline) return;
+
+    if (deadline < "2026-01-01" || deadline > "2030-12-31") {
+        showToast("Tanggal harus berada dalam rentang 2026–2030!");
+        return;
+    }
+
+    const task = {
+        id: Date.now().toString() + Math.random().toString(16).slice(2),
+        subject,
+        name,
+        deadline,
+        priority,
+        done: false,
+        created: Date.now()
+    };
+
+    tasks.push(task);
+
+    saveTasks();
+    renderTasks();
+
+    this.reset();
+
+    showToast("Tugas berhasil masuk antrian!");
+    playSound("success");
+});
+
+// ======================================
+// MENAMPILKAN TUGAS
+// ======================================
+
+function renderTasks() {
+    const list = document.getElementById("taskList");
+
+    const filter = document.getElementById("filter").value;
+    const sort = document.getElementById("sort").value;
+
+    let displayed = [...tasks];
+
+    if (filter === "pending") {
+        displayed = displayed.filter(t => !t.done);
+    }
+
+    if (filter === "completed") {
+        displayed = displayed.filter(t => t.done);
+    }
+
+    if (filter === "overdue") {
+        displayed = displayed.filter(t => isOverdue(t));
+    }
+
+    if (sort === "nearest") {
+        displayed.sort((a,b) => a.deadline.localeCompare(b.deadline));
+    }
+
+    if (sort === "farthest") {
+        displayed.sort((a,b) => b.deadline.localeCompare(a.deadline));
+    }
+
+    if (sort === "priority") {
+        const order = {urgent: 0, high: 1, normal: 2};
+
+        displayed.sort((a,b) =>
+            order[a.priority] - order[b.priority] ||
+            a.deadline.localeCompare(b.deadline)
+        );
+    }
+
+    if (sort === "newest") {
+        displayed.sort((a,b) => b.created - a.created);
+    }
+
+    document.getElementById("total").textContent = tasks.length;
+    document.getElementById("pending").textContent =
+        tasks.filter(t => !t.done).length;
+    document.getElementById("completed").textContent =
+        tasks.filter(t => t.done).length;
+
+    if (displayed.length === 0) {
+        list.innerHTML = `
+            <div class="empty">
+                <div class="emoji">📭</div>
+                <p>Belum ada tugas di sini!</p>
+                <small>Tambahkan tugas pertamamu di atas.</small>
+            </div>
+        `;
+        return;
+    }
+
+    list.innerHTML = displayed.map(task => {
+
+        const overdue = isOverdue(task);
+
+        let status = "⏳ BELUM SELESAI";
+        let statusClass = "";
+
+        if (task.done) {
+            status = "✓ SELESAI";
+            statusClass = "finished";
+        } else if (overdue) {
+            status = "⚠ TERLAMBAT";
+            statusClass = "late";
+        }
+
+        let priorityText = {
+            normal: "NORMAL",
+            high: "PENTING!",
+            urgent: "SANGAT MENDESAK!!"
+        }[task.priority];
+
+        return `
+        <div class="task ${task.done ? "done" : ""} ${overdue ? "overdue" : ""}">
+
+            <div class="task-header">
+                <div>
+                    <div class="task-name">${escapeHTML(task.name)}</div>
+                    <span class="task-subject">${escapeHTML(task.subject)}</span>
+                </div>
+
+                <span style="font-size:10px;font-weight:900;color:#5076a8">
+                    ${priorityText}
+                </span>
+            </div>
+
+            <div class="deadline">
+                📅 Deadline: ${formatDate(task.deadline)}
+            </div>
+
+            <div>
+                <span class="task-status ${statusClass}">${status}</span>
+            </div>
+
+            <div class="task-actions">
+                ${!task.done ? `
+                <button class="primary-btn" onclick="completeTask('${task.id}')">
+       
